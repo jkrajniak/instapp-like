@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}images{% endblock %}
 
@@ -12,8 +13,6 @@
             <figcaption class="figure-caption">{{ img.title }}</figcaption>
             </a>
         </figure>
-
-        <!--<img class="img-fluid img-thumbnail center-cropped" alt="{{ img.title }}" src="">-->
     </div>
 {% endfor %}
 </div>

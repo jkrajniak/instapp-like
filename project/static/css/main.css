@@ -4,3 +4,8 @@
   height: 300px;
   width: 400px;
 }
+
+.glyph-icon svg {
+width:16px;
+height:16px;
+}

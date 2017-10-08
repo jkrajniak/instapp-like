@@ -49,7 +49,7 @@ def upload_image(request):
             visual_attrs = tools.handle_image(new_image)
             new_image.visual_attrs = visual_attrs
             new_image.save()
-            return HttpResponseRedirect(reverse('main_index'))
+            return HttpResponseRedirect(reverse('view_image', args=(new_image.id,)))
     else:
         form = UploadFileForm()
 
