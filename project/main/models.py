@@ -19,6 +19,7 @@
 from django.db import models
 import jsonfield
 
+
 class Image(models.Model):
     """Model to store data related to the uploaded image."""
     title = models.CharField(max_length=200)
