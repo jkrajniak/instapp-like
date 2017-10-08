@@ -18,7 +18,7 @@
 
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, resolve
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from . import tools
@@ -61,5 +61,17 @@ def view_image(request, image_id):
         image = Image.objects.get(pk=image_id)
     except Image.DoesNotExist:
         raise Http404('Image does not exist')
-
     return render(request, 'main/image_detail.html', {'image': image})
+
+
+def fetch_data(request, image_id):
+    try:
+        image = Image.objects.get(pk=image_id)
+    except Image.DoesNotExist:
+        raise Http404('Image does not exist')
+
+    visual_attrs = tools.handle_image(image)
+    image.visual_attrs = visual_attrs
+    image.save()
+
+    return HttpResponseRedirect(reverse('view_image', args=(image_id,)))
