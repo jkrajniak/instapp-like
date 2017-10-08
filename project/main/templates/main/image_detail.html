@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load extra_filters %}
+
+{% block title %}image {{ image.title }}{% endblock %}
+
+{% block content %}
+<h1>Details of image {{ image.title }}</h1>
+<div class="row">
+    <div class="col-sm-3">
+        <a href="{% url 'view_image' image.id %}" class="d-block mb-4 h-100">
+        <img class="img-fluid img-thumbnail center-cropped" alt="{{ image.title }}" src="{{ image.image.url }}">
+        </a>
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+</div>
+{% endblock %}

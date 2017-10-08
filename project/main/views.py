@@ -16,31 +16,50 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from . import tools
 from .forms import UploadFileForm
 from .models import Image
 
+
 def index(request):
-    images = Image.objects.all()
+    image_list = Image.objects.all()
+    image_paginator = Paginator(image_list, 8)
+
+    page = request.GET.get('page')
+    try:
+        images = image_paginator.page(page)
+    except PageNotAnInteger:
+        images = image_paginator.page(1)
+    except EmptyPage:
+        images = image_paginator.page(image_paginator.num_pages)
 
     return render(request, 'main/index.html', {'images': images})
+
 
 def upload_image(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=True)
+            new_image = form.save(commit=True)
+            visual_attrs = tools.handle_image(new_image)
+            new_image.visual_attrs = visual_attrs
+            new_image.save()
             return HttpResponseRedirect(reverse('main_index'))
     else:
         form = UploadFileForm()
 
     return render(request, 'main/upload.html', {'upload_form': form})
 
-# def upload_image(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             handle_uploaded_file(request.FILES['file'])
+
+def view_image(request, image_id):
+    try:
+        image = Image.objects.get(pk=image_id)
+    except Image.DoesNotExist:
+        raise Http404('Image does not exist')
+
+    return render(request, 'main/image_detail.html', {'image': image})
