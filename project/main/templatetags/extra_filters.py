@@ -16,6 +16,12 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.test import TestCase
+from django import template
 
-# Create your tests here.
+register = template.Library()
+
+# Stolen from: https://benjaminbaka.wordpress.com/2016/01/23/add-class-attribute-to-django-form-fields/
+
+@register.filter(name='addclass')
+def addclass(form_field, class_attr):
+    return form_field.as_widget(attrs={'class': class_attr})
