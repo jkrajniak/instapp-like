@@ -30,3 +30,17 @@ finally you can run test server
 ```
 $ ./manage.py runserver
 ```
+
+
+Screenshots
+==============
+
+Main:
+
+![Main](https://dl.dropboxusercontent.com/s/oxhhy6s8qw9w8r6/screen1.png?dl=0 "Main page")
+
+Adding image:
+![Adding](https://dl.dropboxusercontent.com/s/sczjfascfib700d/screen2.png?dl=0 "Main page")
+
+Image details
+![Details](https://dl.dropboxusercontent.com/s/tl9xzfq9j4h9dpi/screen3.png?dl=0 "Main page")
