@@ -4,6 +4,7 @@
 {% block title %}images{% endblock %}
 
 {% block content %}
+{% if images %}
 <div class="row text-center text-lg-left">
 {% for img in images %}
     <div class="col-lg-3 col-md-4 col-xs-6">
@@ -41,5 +42,10 @@
  </ul>
 </nav>
 
+{% else %}
+<div style="padding-top: 60px">
+    <a href="{% url 'upload_image' %}"><button type="button" class="btn btn-primary btn-lg btn-block">Upload image</button></a>
+</div>
+{% endif %}
 
 {% endblock %}

@@ -20,6 +20,7 @@
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
+from google.auth import exceptions
 from google.protobuf.json_format import MessageToJson
 
 
@@ -32,15 +33,17 @@ def handle_image(image):
     Returns:
         The JSON string from Google Vision service.
     """
-    client = vision.ImageAnnotatorClient()
-    image.image.open()
-    content = image.image.read()
-    gcv_image = types.Image(content=content)
-    request = {
-        'image': {
-            'content': gcv_image.content
+    try:
+        client = vision.ImageAnnotatorClient()
+        image.image.open()
+        content = image.image.read()
+        gcv_image = types.Image(content=content)
+        request = {
+            'image': {
+                'content': gcv_image.content
+            }
         }
-    }
-    response = client.annotate_image(request)
-    jsonObj = MessageToJson(response)
-    return jsonObj
+        response = client.annotate_image(request)
+        return MessageToJson(response)
+    except exceptions.DefaultCredentialsError:
+        return None
