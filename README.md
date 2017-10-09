@@ -8,7 +8,8 @@ Libraries:
  - Google Vision
  - Twitter bootstrap
 
-How to use it
+How to install
+--------------
 
 ```
 $ python3 -m venv vision
@@ -21,13 +22,13 @@ $ cd project
 $ ./manage.py migrate
 ```
 
-To run you need [Google credentials](https://developers.google.com/identity/protocols/application-default-credentials).
+You need [Google credentials](https://developers.google.com/identity/protocols/application-default-credentials) to run an image analysis.
 
 ```
 $ export GOOGLE_APPLICATION_CREDENTIALS=<path to json file with credentials>
 ```
 
-finally you can run test server
+finally, you can run test server
 ```
 $ ./manage.py runserver
 ```
