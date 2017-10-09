@@ -4,8 +4,9 @@ Instlike app
 App build with Django 1.11.
 
 Libraries:
- - Django 1.11
+ - Django 1.11 & sqlite
  - Google Vision
+ - Twitter bootstrap
 
 How to use it
 
